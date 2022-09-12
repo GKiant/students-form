@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="./css/normalize.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
   <link rel="stylesheet" href="./css/style.css">
-  <script defer src="./js/main.js"></script>
+  <script defer type="module" src="./js/main.js"></script>
   <title>Student Form</title>
 </head>
 <body>
@@ -30,13 +30,18 @@
           <small></small>
         </div>
         <div class="mb-3 form-field">
+          <label for="last-name-input" class="form-label">Faculty</label>
+          <input type="text" class="form-control" id="faculty-input" name="faculty" placeholder="Computer Science">
+          <small></small>
+        </div>
+        <div class="mb-3 form-field">
           <label for="bdate-input" class="form-label">Date of birth</label>
           <input type="date" class="form-control" id="bdate-input" min="1900-01-01" max="2022-12-12" name="birth-date" placeholder="22-02-2002">
           <small></small>
         </div>
         <div class="mb-3 form-field">
           <label for="study-years-input" class="form-label">Start of the education</label>
-          <input type="date" class="form-control" id="study-years-input" min="2000-01-01" name="study-years" placeholder="22-02-2002">
+          <input type="number" class="form-control" id="study-years-input" name="study-years" placeholder="2012">
           <small></small>
         </div>
         <div class="btn-container">
@@ -55,25 +60,7 @@
             <th scope="col">Years of study</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Fred Otto</th>
-            <td>Biology</td>
-            <td>30.07.1989</td>
-            <td>2007-2011</td>
-          </tr>
-          <tr>
-            <th scope="row">Jacob Thornton</th>
-            <td>Earth Sciences</td>
-            <td>25.02.2001</td>
-            <td>2019-2023</td>
-          </tr>
-          <tr>
-            <th scope="row">Larry the Bird</th>
-            <td>Computer Science</td>
-            <td>01.04.2003</td>
-            <td>2021-2025</td>
-          </tr>
+        <tbody id="tbody">
         </tbody>
       </table>
     </div>

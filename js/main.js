@@ -1,145 +1,89 @@
+import { dropdownForm, maxDate, submitForm } from './form.js';
+
+export const studentsList = [
+  { firstName: 'Fred', lastName: 'Otto', faculty: 'Biology', birthDate: '1989-07-30', studyStartYear: '2006' },
+  { firstName: 'Jacob', lastName: 'Thornton', faculty: 'Physics', birthDate: '1977-02-05', studyStartYear: '2020' },
+  { firstName: 'Kaitlan', lastName: 'Gibbons', faculty: 'Social Sciences', birthDate: '1983-04-30', studyStartYear: '2018' },
+  { firstName: 'Kathryn', lastName: 'Schneider', faculty: 'Humanities', birthDate: '1985-11-14', studyStartYear: '2022' },
+  { firstName: 'Stanislaw', lastName: 'Felix', faculty: 'Business Administration', birthDate: '1975-06-10', studyStartYear: '1995' },
+  { firstName: 'Gina', lastName: 'Hyde', faculty: 'Social Sciences', birthDate: '1997-01-05', studyStartYear: '2001' },
+  { firstName: 'Walter', lastName: 'Contreras', faculty: 'Law', birthDate: '1990-08-11', studyStartYear: '2007' }
+]
+
 // Show\hide form to add a new student
-const dropdownForm = () => {
-  document.getElementById('btn-show-form').addEventListener('click', () => document.getElementById('form-container').style['transform'] = 'translateY(0%)');
-  document.getElementById('close-form-btn').addEventListener('click', () => document.getElementById('form-container').style['transform'] = 'translateY(-105%)');
-}
 dropdownForm();
 
 // Limiting max value of birthday field
-const maxDate = () => {
-  let today = new Date();
-  let dd = today.getDate();
-  let mm = today.getMonth() + 1;
-  const yyyy = today.getFullYear();
-
-  if (dd < 10) {
-    dd = '0' + dd;
-  }
-
-  if (mm < 10) {
-    mm = '0' + mm;
-  }
-
-  today = yyyy + '-' + mm + '-' + dd;
-  return document.getElementById("bdate-input").setAttribute("max", today);
-}
 maxDate();
 
-const firstNameEl = document.querySelector('#first-name-input');
-const lastNameEl = document.querySelector('#last-name-input');
-const birthdateEl = document.querySelector('#bdate-input');
-const studyStartDateEl = document.querySelector('#study-years-input');
+submitForm()
 
-const form = document.querySelector('#form');
-console.log(form)
+export const createTable = () => {
+  let today = new Date();
+  let currentAge;
+  let currentStudentStatus;
 
-const isRequired = value => value === '' ? false : true;
-const isBetween = (length, min, max) => length < min || length > max ? false : true;
-
-const showError = (input, message) => {
-  const formField = input.parentElement;
-
-  formField.classList.remove('success')
-  formField.classList.add('error')
-
-  const error = formField.querySelector('small');
-  error.textContent = message;
-}
-
-const showSuccess = (input) => {
-  const formField = input.parentElement;
-
-  formField.classList.remove('error');
-  formField.classList.add('success')
-
-  const success = formField.querySelector('small');
-  success.textContent = ''
-}
-
-const checkFirstname = () => {
-  let valid = false;
-  const min = 2;
-  const max = 16;
-  const firstName = firstNameEl.value.trim();
-
-  if (!isRequired(firstName)) {
-    showError(firstNameEl, 'This field cannot be blank')
-  } else if (!isBetween(firstName.length, min, max)) {
-    showError(firstNameEl, `First name must be between ${min} and ${max} characters`)
-  } else {
-    showSuccess(firstNameEl);
-    valid = true;
-  }
-  return valid;
-}
-
-const checkLastname = () => {
-  let valid = false;
-  const min = 2;
-  const max = 16;
-  const lastName = lastNameEl.value.trim();
-
-  if (!isRequired(lastName)) {
-    showError(lastNameEl, 'This field cannot be blank')
-  } else if (!isBetween(lastName.length, min, max)) {
-    showError(lastNameEl, `last name must be between ${min} and ${max} characters`)
-  } else {
-    showSuccess(lastNameEl);
-    valid = true;
-  }
-  return valid;
-}
-
-const checkBirthdate = () => {
-  let valid = false;
-  const birthdate = document.getElementById('bdate-input').value;
-  console.log(birthdate)
-
-  if (!isRequired(birthdate)) {
-    showError(birthdateEl, 'This field cannot be blank')
-  } else {
-    showSuccess(birthdateEl);
-    valid = true;
-  }
-  return valid;
-}
-
-const checkStudyYears = () => {
-  let valid = false;
-
-  const studyYears = document.getElementById('study-years-input').value
-
-  if (!isRequired(studyYears)) {
-    showError(studyStartDateEl, 'This field cannot be blank')
+  studentsList.map((e) => {
+    // If statement is calculating precise current student age
+    if (today.getMonth() + 1 > parseInt(e.birthDate.slice(5, 7))) {
+      currentAge = today.getFullYear() - e.birthDate.slice(0, 4)
+    } else if (today.getMonth() + 1 < parseInt(e.birthDate.slice(5, 7))) {
+      currentAge = today.getFullYear() - e.birthDate.slice(0, 4) - 1
     } else {
-    showSuccess(studyStartDateEl);
-    valid = true;
-  }
-  return valid;
+      if (today.getDate() >= parseInt(e.birthDate.slice(-2))) {
+        currentAge = today.getFullYear() - e.birthDate.slice(0, 4)
+      } else {
+        currentAge = today.getFullYear() - e.birthDate.slice(0, 4) - 1
+      }
+    }
+
+    const tableRow = document.createElement('tr')
+
+    const fullNameRow = document.createElement('td')
+    const facultyRow = document.createElement('td')
+    const birthDateRow = document.createElement('td')
+    const studyStartYearRow = document.createElement('td')
+
+    fullNameRow.textContent = e.firstName + ' ' + e.lastName;
+    facultyRow.textContent = e.faculty;
+    birthDateRow.textContent = e.birthDate + ` (${currentAge} years)`;
+
+    if (parseInt(e.studyStartYear) + 4 < today.getFullYear()) {
+      currentStudentStatus = 'graduated';
+    } else {
+      currentStudentStatus = today.getFullYear() - parseInt(e.studyStartYear);
+      console.log(currentStudentStatus)
+      switch (currentStudentStatus) {
+        case 0:
+        case 1:
+          currentStudentStatus = `First year`;
+          break;
+        case 2:
+          currentStudentStatus = 'Second year';
+          break;
+        case 3:
+          currentStudentStatus = 'Third year';
+          break;
+        case 4:
+          if (today.getMonth + 1 > 9) {
+            currentStudentStatus = 'graduated'
+          } else {
+            currentStudentStatus = 'Fourth year';
+          }
+          break;
+        default:
+          currentStudentStatus = 'Error'
+      }
+    }
+
+    studyStartYearRow.textContent = `${e.studyStartYear}-${parseInt(e.studyStartYear) + 4} (${currentStudentStatus})`;
+
+    document.getElementById('tbody').append(tableRow)
+    tableRow.append(fullNameRow)
+    tableRow.append(facultyRow)
+    tableRow.append(birthDateRow)
+    tableRow.append(studyStartYearRow)
+  })
 }
+createTable()
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  let isFirstnameValid = checkFirstname();
-  let isLastnameValid = checkLastname();
-  let isBirthdateValid = checkBirthdate();
-  let isStudyYears = checkStudyYears();
-  console.log(isFirstnameValid)
-  console.log(isLastnameValid)
-  console.log(isBirthdateValid)
-  console.log(isStudyYears)
-
-  let isFormValid = isFirstnameValid && 
-      isLastnameValid &&
-      isBirthdateValid &&
-      isStudyYears;
-  console.log(isFormValid)
-  if (isFormValid) {
-    console.log(document.getElementById('first-name-input').value)
-    console.log(document.getElementById('last-name-input').value)
-    console.log(document.getElementById('bdate-input').value)
-    console.log(document.getElementById('study-years-input').value)
-  }
-
-})
