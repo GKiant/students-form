@@ -8,7 +8,6 @@ export const dropdownForm = () => {
 
 
 // Limiting max value of birthday field
-
 export const maxDate = () => {
   let today = new Date();
   let dd = today.getDate();
@@ -25,8 +24,8 @@ export const maxDate = () => {
 
   today = yyyy + '-' + mm + '-' + dd;
   return document.getElementById("bdate-input").setAttribute("max", today)
-    // document.getElementById("study-years-input").setAttribute("max", yyyy);
 }
+
 // Validation for the "add new student" form
 const firstNameEl = document.querySelector('#first-name-input');
 const lastNameEl = document.querySelector('#last-name-input');
