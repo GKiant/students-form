@@ -174,13 +174,12 @@ export const submitForm = () => {
 
     if (isFormValid) {
 
-      studentsList.push({ firstName: firstNameEl.value, lastName: lastNameEl.value, faculty: facultyEl.value, birthDate: birthdateEl.value, studyStartYear: studyStartYearEl.value });
-      console.log(birthdateEl)
-
+      
+      // Calculating student age
       if (today.getMonth() + 1 > parseInt(birthdateEl.value.slice(5, 7))) {
-        currentAge = today.getFullYear() - birthdateEl.value.slice(0, 4)
+        currentAge = today.getFullYear() - birthdateEl.value.slice(0, 4);
       } else if (today.getMonth() + 1 < parseInt(birthdateEl.value.slice(5, 7))) {
-        currentAge = today.getFullYear() - birthdateEl.value.slice(0, 4) - 1
+        currentAge = today.getFullYear() - birthdateEl.value.slice(0, 4) - 1;
       } else {
         if (today.getDate() >= parseInt(birthdateEl.value.slice(-2))) {
           currentAge = today.getFullYear() - birthdateEl.value.slice(0, 4)
@@ -188,18 +187,22 @@ export const submitForm = () => {
           currentAge = today.getFullYear() - birthdateEl.value.slice(0, 4) - 1
         }
       }
+      
+      studentsList.push({ firstName: firstNameEl.value, lastName: lastNameEl.value, faculty: facultyEl.value, birthDate: birthdateEl.value, currentAge: currentAge, studyStartYear: studyStartYearEl.value });
+      
+      console.log(studentsList)
 
-      const tableRow = document.createElement('tr')
-
-      const fullNameRow = document.createElement('td')
-      const facultyRow = document.createElement('td')
-      const birthDateRow = document.createElement('td')
-      const studyStartYearRow = document.createElement('td')
+      const tableRow = document.createElement('tr');
+      const fullNameRow = document.createElement('td');
+      const facultyRow = document.createElement('td');
+      const birthDateRow = document.createElement('td');
+      const studyStartYearRow = document.createElement('td');
 
       fullNameRow.textContent = firstNameEl.value + ' ' + lastNameEl.value;
       facultyRow.textContent = facultyEl.value;
       birthDateRow.textContent = birthdateEl.value + ` (${currentAge} years)`;
 
+      // Calculating how many years student is studying atm or if he already graduated
       if (parseInt(studyStartYearEl.value) + 4 < today.getFullYear()) {
         currentStudentStatus = 'graduated';
       } else {
@@ -217,14 +220,14 @@ export const submitForm = () => {
             currentStudentStatus = 'Third year';
             break;
           case 4:
-            if (today.getMonth + 1 > 9) {
+            if (today.getMonth() + 1 > 9) {
               currentStudentStatus = 'graduated'
             } else {
               currentStudentStatus = 'Fourth year';
             }
             break;
           default:
-            currentStudentStatus = 'Error'
+            currentStudentStatus = ' ';
         }
       }
 
@@ -238,22 +241,27 @@ export const submitForm = () => {
 
       firstNameEl.value = '';
       firstNameEl.parentElement.classList.remove('error');
+      firstNameEl.parentElement.classList.remove('success');
       firstNameEl.parentElement.querySelector('small').textContent = '';
 
       lastNameEl.value = '';
       lastNameEl.parentElement.classList.remove('error');
+      lastNameEl.parentElement.classList.remove('success');
       lastNameEl.parentElement.querySelector('small').textContent = '';
 
       facultyEl.value = '';
       facultyEl.parentElement.classList.remove('error');
+      facultyEl.parentElement.classList.remove('success');
       facultyEl.parentElement.querySelector('small').textContent = '';
 
       birthdateEl.value = '';
       birthdateEl.parentElement.classList.remove('error');
+      birthdateEl.parentElement.classList.remove('success');
       birthdateEl.parentElement.querySelector('small').textContent = '';
 
       studyStartYearEl.value = '';
       studyStartYearEl.parentElement.classList.remove('error');
+      studyStartYearEl.parentElement.classList.remove('success');
       studyStartYearEl.parentElement.querySelector('small').textContent = '';
     }
   })

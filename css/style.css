@@ -56,6 +56,10 @@
   color: var(--error-color);
 }
 
+.table-title {
+  cursor: pointer;
+}
+
 
 @media (max-width: 840px) {
   .container-fluid {
