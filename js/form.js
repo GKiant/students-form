@@ -6,7 +6,6 @@ export const dropdownForm = () => {
   document.getElementById('close-form-btn').addEventListener('click', () => document.getElementById('form-container').style['transform'] = 'translateY(-105%)');
 }
 
-
 // Limiting max value of birthday field
 export const maxDate = () => {
   let today = new Date();
@@ -187,7 +186,7 @@ export const submitForm = () => {
         }
       }
       
-      studentsList.push({ firstName: firstNameEl.value, lastName: lastNameEl.value, faculty: facultyEl.value, birthDate: birthdateEl.value, currentAge: currentAge, studyStartYear: studyStartYearEl.value });
+      studentsList.push({ firstName: firstNameEl.value, lastName: lastNameEl.value, fullName: firstNameEl.value + ' ' + lastNameEl.value, faculty: facultyEl.value, birthDate: birthdateEl.value, currentAge: currentAge, studyStartYear: studyStartYearEl.value });
       
       console.log(studentsList)
 

@@ -25,7 +25,7 @@
           <small></small>
         </div>
         <div class="mb-3 form-field">
-          <label for="last-name-input" class="form-label">Last name</label>
+          <label for="last-name-input" class="form-label">Last name:</label>
           <input type="text" class="form-control" id="last-name-input" name="last-name" placeholder="Doe">
           <small></small>
         </div>
@@ -50,7 +50,25 @@
       </form>
     </div>
 
-    <div class="container-xl mt-3">
+    <div class="container-xl mt-3" id="table-container">
+      <div class="container-sm search-container">
+        <div class="mb-3  search-input__container">
+          <label for="nameSearch" class="search-label">Search by name:</label>
+          <input type="text" id="nameSearch" class="form-control search-input">
+        </div>
+        <div class="mb-3 search-input__container">
+          <label for="nameFaculty" class="search-label">Search by faculty:</label>
+          <input type="text" id="facultySearch" class="form-control search-input">
+        </div>
+        <div class="mb-3 search-input__container">
+          <label for="nameBirthdate" class="search-label">Search by birth date:</label>
+          <input type="text" id="birthdateSearch" class="form-control search-input">
+        </div>
+        <div class="mb-3 search-input__container">
+          <label for="nameStudy" class="search-label">Search by year of study:</label>
+          <input type="text" id="studySearch" class="form-control search-input">
+        </div>
+      </div>
       <table class="table">
         <thead>
           <tr>
