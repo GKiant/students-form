@@ -186,7 +186,7 @@ export const submitForm = () => {
         }
       }
       
-      studentsList.push({ firstName: firstNameEl.value, lastName: lastNameEl.value, fullName: firstNameEl.value + ' ' + lastNameEl.value, faculty: facultyEl.value, birthDate: birthdateEl.value, currentAge: currentAge, studyStartYear: studyStartYearEl.value });
+      studentsList.push({ id: `${studentsList.length}`, firstName: firstNameEl.value, lastName: lastNameEl.value, fullName: firstNameEl.value + ' ' + lastNameEl.value, faculty: facultyEl.value, birthDate: birthdateEl.value, currentAge: currentAge, studyStartYear: studyStartYearEl.value });
       
       console.log(studentsList)
 

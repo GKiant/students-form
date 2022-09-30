@@ -2,15 +2,17 @@ import { dropdownForm, maxDate, submitForm } from './form.js';
 
 import { createFilterLogic } from './filter.js';
 
+import { liveSearch } from './search.js';
+
 export const studentsList = [
-  { firstName: 'Jacob', lastName: 'Thornton', faculty: 'Physics', birthDate: '1977-02-05', currentAge: 0, studyStartYear: '2020' },
-  { firstName: 'Fred', lastName: 'Otto', faculty: 'Biology', birthDate: '1989-07-30', currentAge: 0, studyStartYear: '2006' },
-  { firstName: 'Walter', lastName: 'Contreras', faculty: 'Law', birthDate: '1990-08-11', currentAge: 0, studyStartYear: '2007' },
-  { firstName: 'Kathryn', lastName: 'Schneider', faculty: 'Humanities', birthDate: '1985-11-14', currentAge: 0, studyStartYear: '2022' },
-  { firstName: 'Gina', lastName: 'Hyde', faculty: 'Social Sciences', birthDate: '1997-01-05', currentAge: 0, studyStartYear: '2001' },
-  { firstName: 'Fred', lastName: 'Grenade', faculty: 'Biology', birthDate: '1989-07-20', currentAge: 0, studyStartYear: '2007' },
-  { firstName: 'Stanislaw', lastName: 'Felix', faculty: 'Business Administration', birthDate: '1975-06-10', currentAge: 0, studyStartYear: '1995' },
-  { firstName: 'Kaitlan', lastName: 'Gibbons', faculty: 'Social Sciences', birthDate: '1983-04-30', currentAge: 0, studyStartYear: '2018' }
+  { id: '0', firstName: 'Jacob', lastName: 'Thornton', faculty: 'Physics', birthDate: '1977-02-05', currentAge: 0, studyStartYear: '2020' },
+  { id: '1', firstName: 'Fred', lastName: 'Otto', faculty: 'Biology', birthDate: '1989-07-30', currentAge: 0, studyStartYear: '2006' },
+  { id: '2', firstName: 'Walter', lastName: 'Contreras', faculty: 'Law', birthDate: '1990-08-11', currentAge: 0, studyStartYear: '2007' },
+  { id: '3', firstName: 'Kathryn', lastName: 'Schneider', faculty: 'Humanities', birthDate: '1985-11-14', currentAge: 0, studyStartYear: '2022' },
+  { id: '4', firstName: 'Gina', lastName: 'Hyde', faculty: 'Social Sciences', birthDate: '1997-01-05', currentAge: 0, studyStartYear: '2001' },
+  { id: '5', firstName: 'Fred', lastName: 'Grenade', faculty: 'Biology', birthDate: '1989-07-20', currentAge: 0, studyStartYear: '2007' },
+  { id: '6', firstName: 'Stanislaw', lastName: 'Felix', faculty: 'Business Administration', birthDate: '1975-06-10', currentAge: 0, studyStartYear: '1995' },
+  { id: '7', firstName: 'Kaitlan', lastName: 'Gibbons', faculty: 'Social Sciences', birthDate: '1983-04-30', currentAge: 0, studyStartYear: '2018' }
 ]
 
 // Show\hide form to add a new student
@@ -19,7 +21,7 @@ dropdownForm();
 // Limiting max value of birthday field
 maxDate();
 
-submitForm()
+submitForm();
 
 let currentAge;
 export const createTable = (arr) => {
@@ -42,13 +44,13 @@ export const createTable = (arr) => {
 
     e.currentAge = currentAge;
 
-    const tableRow = document.createElement('tr')
-    const fullNameRow = document.createElement('td')
-    const facultyRow = document.createElement('td')
-    const birthDateRow = document.createElement('td')
-    const studyStartYearRow = document.createElement('td')
+    const tableRow = document.createElement('tr');
+    const fullNameRow = document.createElement('td');
+    const facultyRow = document.createElement('td');
+    const birthDateRow = document.createElement('td');
+    const studyStartYearRow = document.createElement('td');
 
-    tableRow.classList.add('tableRow')
+    tableRow.classList.add('tableRow');
 
 
     fullNameRow.textContent = e.firstName + ' ' + e.lastName;
@@ -86,94 +88,16 @@ export const createTable = (arr) => {
 
     studyStartYearRow.textContent = `${e.studyStartYear}-${parseInt(e.studyStartYear) + 4} (${currentStudentStatus})`;
 
-    document.getElementById('tbody').append(tableRow)
-    tableRow.append(fullNameRow)
-    tableRow.append(facultyRow)
-    tableRow.append(birthDateRow)
-    tableRow.append(studyStartYearRow)
+    document.getElementById('tbody').append(tableRow);
+    tableRow.append(fullNameRow);
+    tableRow.append(facultyRow);
+    tableRow.append(birthDateRow);
+    tableRow.append(studyStartYearRow);
   })
 }
 
-createTable(studentsList)
+createTable(studentsList);
 
-createFilterLogic()
+createFilterLogic();
 
-document.querySelector('#nameSearch').oninput = function () {
-  let val = this.value.trim().toLowerCase();
-  let elasticItems = document.querySelectorAll('tr.tableRow td:nth-child(4n-3)')
-
-  if (val !== '') {
-    elasticItems.forEach((e) => {
-      if (e.innerText.toLowerCase().search(val) === -1) {
-        e.parentElement.classList.add('hide')
-      } else {
-        e.parentElement.classList.remove('hide')
-      }
-    });
-  } else {
-    elasticItems.forEach((e) => {
-      e.parentElement.classList.remove('hide')
-    })
-  }
-}
-
-document.querySelector('#facultySearch').oninput = function () {
-  let val = this.value.trim().toLowerCase();
-  let elasticItems = document.querySelectorAll('tr.tableRow td:nth-child(4n-2)')
-
-  if (val !== '') {
-    elasticItems.forEach((e) => {
-      if (e.innerText.toLowerCase().search(val) === -1) {
-        e.parentElement.classList.add('hide')
-      } else {
-        e.parentElement.classList.remove('hide')
-      }
-    });
-  } else {
-    elasticItems.forEach((e) => {
-      e.parentElement.classList.remove('hide')
-    })
-  }
-}
-
-document.querySelector('#birthdateSearch').oninput = function () {
-  let val = this.value.trim().toLowerCase();
-  let elasticItems = document.querySelectorAll('tr.tableRow td:nth-child(4n-1)')
-
-  if (val !== '') {
-    elasticItems.forEach((e) => {
-      if (e.innerText.toLowerCase().search(val) === -1) {
-        e.parentElement.classList.add('hide')
-      } else {
-        e.parentElement.classList.remove('hide')
-      }
-    });
-  } else {
-    elasticItems.forEach((e) => {
-      e.parentElement.classList.remove('hide')
-    })
-  }
-}
-
-document.querySelector('#studySearch').oninput = function () {
-  let val = this.value.trim().toLowerCase();
-  let elasticItems = document.querySelectorAll('tr.tableRow td:nth-child(4n)')
-
-  if (val !== '') {
-    elasticItems.forEach((e) => {
-      if (e.innerText.toLowerCase().search(val) === -1) {
-        e.parentElement.classList.add('hide')
-      } else {
-        e.parentElement.classList.remove('hide')
-      }
-    });
-  } else {
-    elasticItems.forEach((e) => {
-      e.parentElement.classList.remove('hide')
-    })
-  }
-}
-
-
-
-
+liveSearch();
